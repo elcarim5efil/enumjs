@@ -43,8 +43,8 @@ export function firstUpperCase(str) {
 export function partialApply(fn) {
     var args = Array.prototype.slice.call(arguments, 1);
     return function() {
-        var finalArgs = Array.prototype.slice.call(arguments, 0);
-        args = args.concat(finalArgs);
-        return fn.apply(null, args);
+        var newArgs = Array.prototype.slice.call(arguments, 0);
+        var finalArgs = args.concat(newArgs);
+        return fn.apply(null, finalArgs);
     }
 }

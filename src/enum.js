@@ -2,13 +2,12 @@ import * as _ from './utils.js';
 import Value from './value.js';
 
 export default function Enum(enums, startIndex) {
-    var startIndex = parseInt(startIndex || 0);
+    var startIndex = parseInt(startIndex || 0) || 0;
     var enumObj = initEnums(enums, {
         startIndex: startIndex,
     });
 
     return enumObj.map;
-
 }
 
 function initEnums(enums, option) {
@@ -57,7 +56,7 @@ function createEnumFromArray(list, option) {
                 list: result.list,
                 map: result.map,
                 key: item.key,
-                val: item.value + startIndex,
+                val: (item.value || index) + startIndex,
                 item: item,
             });
         }

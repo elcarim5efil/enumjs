@@ -88,13 +88,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 function Enum(enums, startIndex) {
-    var startIndex = parseInt(startIndex || 0);
+    var startIndex = parseInt(startIndex || 0) || 0;
     var enumObj = initEnums(enums, {
         startIndex: startIndex,
     });
 
     return enumObj.map;
-
 }
 
 function initEnums(enums, option) {
@@ -143,7 +142,7 @@ function createEnumFromArray(list, option) {
                 list: result.list,
                 map: result.map,
                 key: item.key,
-                val: item.value + startIndex,
+                val: (item.value || index) + startIndex,
                 item: item,
             });
         }
@@ -291,9 +290,9 @@ function firstUpperCase(str) {
 function partialApply(fn) {
     var args = Array.prototype.slice.call(arguments, 1);
     return function() {
-        var finalArgs = Array.prototype.slice.call(arguments, 0);
-        args = args.concat(finalArgs);
-        return fn.apply(null, args);
+        var newArgs = Array.prototype.slice.call(arguments, 0);
+        var finalArgs = args.concat(newArgs);
+        return fn.apply(null, finalArgs);
     }
 }
 
