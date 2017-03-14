@@ -1,0 +1,14 @@
+language: node_js
+
+node_js:
+    - 6
+
+branches:
+    only:
+    - master
+
+install:
+- npm build
+
+script:
+- npm run test
