@@ -14,4 +14,4 @@ script:
 - npm build
 
 after_script:
-- npm run coverage
+- npm run coveralls

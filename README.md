@@ -1,6 +1,7 @@
 # enumjs
 
 [![Build Status](https://travis-ci.org/elcarim5efil/enumjs.svg?branch=master)](https://travis-ci.org/elcarim5efil/enumjs)
+[![Coverage Status](https://coveralls.io/repos/<account>/<repository>/badge.svg?branch=master)](https://coveralls.io/r/<account>/<repository>?branch=master)
 
 A Enum class library in javascript, so far it is written in ES5.
 
