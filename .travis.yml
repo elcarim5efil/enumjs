@@ -12,7 +12,6 @@ install:
 
 script:
 - npm build
-- npm run test
 
 after_script:
 - npm run coverage
