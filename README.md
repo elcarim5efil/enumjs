@@ -1,5 +1,7 @@
 # enumjs
 
+[![Build Status](https://travis-ci.org/elcarim5efil/enumjs.svg?branch=master)](https://travis-ci.org/elcarim5efil/enumjs)
+
 A Enum class library in javascript, so far it is written in ES5.
 
 # quick start
