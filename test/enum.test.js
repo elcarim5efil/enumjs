@@ -71,6 +71,12 @@ describe('Enum', function() {
             expect(ENUMS.getEnum(300).getLabel()).to.be.equal('I am C');
         });
 
+        it('ENUMS.getEnum(filter)', function() {
+            expect(ENUMS.getEnum(function(item){
+                return item.getKey() === 'B';
+            }).getKey()).to.be.equal('B');
+        });
+
         it('ENUMS.A should be unwritable', function() {
             try {
                 ENUMS.A = 10;
@@ -86,54 +92,8 @@ describe('Enum', function() {
             {key: 'B '},
         ]);
 
-    var BOX = new Enum([
-        {
-            key: 'SALES',
-            url: '/businessAnalysis/salesPanel',
-            tip: '不含税含运费销售额，且去除关单(向前回算30天)',
-        },
-        {
-            key: 'PROFIT',
-            url: '/businessAnalysis/grossProfitPanel',
-            tip: '(不含税实收-退款退货金额-采购成本+费用进项税-固定费用)/(不含税实收-退款退货金额)',
-        },
-        {
-            key: 'UV',
-            url: '/businessAnalysis/flowPanel',
-            tip: '访问网站的独立用户数，每日uv去重，时间段时直接相加除以天数',
-        },
-        {
-            key: 'TRANSFORM',
-            url: '/businessAnalysis/flowPanel',
-            tip: 'sum(每日购买人数)/sum(每日uv)',
-        },
-        {
-            key: 'UNIT_PRICE',
-            url: '/businessAnalysis/userPanel',
-            tip: 'sum(每日销售额)/sum(每日购买人数）',
-        },
-        {
-            key: 'NEW_USERS',
-            url: '/businessAnalysis/userPanel',
-            tip: '首次购买的用户数。每日新用户数去重，时间段时直接相加除以天数',
-        },
-        {
-            key: 'DXRATE',
-            url: '/businessAnalysis/goodsPanel',
-            tip: 'sum(每日有销售记录的商品数)/sum(每日在线可售的商品数)',
-        },
-        {
-            key: 'NEW_PRODUCT_NUM',
-            url: '/businessAnalysis/goodsPanel',
-            tip: '上线时间<=30天的商品数。每日新品数去重，时间段时直接相加除以天数',
-        },
-    ])
-        // it('', function() {
-        //     expect(ENUMS.getEnum(1).getKey()).to.be.equal('B');
-        // });
-
         it('', function() {
-            expect(BOX.getEnum(3).getKey()).to.be.equal('B');
+            expect(ENUMS.getEnum(1).getKey()).to.be.equal('B');
         });
     });
 });

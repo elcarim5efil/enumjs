@@ -1,7 +1,7 @@
 {
-    "name": "Enum",
-    "version": "0.0.1",
-    "description": "regular ui library for kaola-bi",
+    "name": "enum_js",
+    "version": "0.0.3",
+    "description": "Enum class for javascript",
     "main": "index.js",
     "scripts": {
         "develop": "gulp develop",
