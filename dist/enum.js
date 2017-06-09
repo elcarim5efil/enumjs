@@ -175,10 +175,12 @@ function initEnums(enums, option) {
     }
 
     __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( res.map, 'length', res.list.length );
+    __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( res.map, 'getEnumKey', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](getEnumKey, res) );
     __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( res.map, 'getEnumKeyName', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](getEnumKeyName, res) );
     __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( res.map, 'getEnum', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](getEnum, res) );
     __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( res.map, 'forEach', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](forEach, res) );
     __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( res.map, 'map', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](map, res) );
+    __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( res.map, 'filter', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](filter, res) );
 
     return res;
 }
@@ -277,6 +279,21 @@ function forEach(enumObj, callback) {
         if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["g" /* isFunction */](callback)){
             callback(enumObj.map[key], key);
         }
+    });
+}
+
+function filter(enumObj, callback) {
+    var list = enumObj.list;
+    var map = enumObj.map;
+    var arr = list.filter(function(key, index) {
+        if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["g" /* isFunction */](callback)){
+            return callback(map[key], key);
+        }
+        return true;
+    });
+
+    return arr.map(function(key) {
+        return map[key];
     });
 }
 

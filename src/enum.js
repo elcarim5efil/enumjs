@@ -23,10 +23,12 @@ function initEnums(enums, option) {
     }
 
     _.setUnenumerable( res.map, 'length', res.list.length );
+    _.setUnenumerable( res.map, 'getEnumKey', _.partialApply(getEnumKey, res) );
     _.setUnenumerable( res.map, 'getEnumKeyName', _.partialApply(getEnumKeyName, res) );
     _.setUnenumerable( res.map, 'getEnum', _.partialApply(getEnum, res) );
     _.setUnenumerable( res.map, 'forEach', _.partialApply(forEach, res) );
     _.setUnenumerable( res.map, 'map', _.partialApply(map, res) );
+    _.setUnenumerable( res.map, 'filter', _.partialApply(filter, res) );
 
     return res;
 }
@@ -125,6 +127,21 @@ function forEach(enumObj, callback) {
         if(_.isFunction(callback)){
             callback(enumObj.map[key], key);
         }
+    });
+}
+
+function filter(enumObj, callback) {
+    var list = enumObj.list;
+    var map = enumObj.map;
+    var arr = list.filter(function(key, index) {
+        if(_.isFunction(callback)){
+            return callback(map[key], key);
+        }
+        return true;
+    });
+
+    return arr.map(function(key) {
+        return map[key];
     });
 }
 
