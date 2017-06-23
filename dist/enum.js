@@ -246,7 +246,7 @@ function getEnumKeyName(enumObj, val) {
 function getEnum(enumObj, val) {
     var list = enumObj.list;
     var map = enumObj.map;
-    var res = {};
+    var res = null;
     var match = __WEBPACK_IMPORTED_MODULE_0__utils_js__["g" /* isFunction */](val) ? val : itemEqualsVal;
     list.some(function(key, index) {
         if(match(map[key], val)) {

@@ -94,7 +94,7 @@ function getEnumKeyName(enumObj, val) {
 function getEnum(enumObj, val) {
     var list = enumObj.list;
     var map = enumObj.map;
-    var res = {};
+    var res = null;
     var match = _.isFunction(val) ? val : itemEqualsVal;
     list.some(function(key, index) {
         if(match(map[key], val)) {
