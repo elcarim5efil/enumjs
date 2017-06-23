@@ -210,7 +210,7 @@ function createEnumFromArray(list, option) {
                 list: result.list,
                 map: result.map,
                 key: item.key,
-                val: (item.value || index) + startIndex,
+                val: (item.value === undefined ? (index  + startIndex): item.value),
                 item: item,
             });
         }

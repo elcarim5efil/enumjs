@@ -60,6 +60,20 @@ describe('Enum', function() {
             expect(ENUMS.B.getValue()).to.be.equal(1);
             expect(ENUMS.B.equals(1)).to.be.equal(true);
         });
+
+        it('default value [{A},{B},{C}]', function() {
+            var ENUMS = new Enum([
+                {key: 'A', value: -1},
+                {key: 'B', value: 0},
+                {key: 'C', value: 1}
+            ]);
+            expect(+ENUMS.B).to.be.equal(0);
+            expect(+ENUMS.B).to.be.equal(0);
+            expect(ENUMS.B == 0).to.be.equal(true);
+            expect(ENUMS.B === 0).to.be.equal(false);
+            expect(ENUMS.B.getValue()).to.be.equal(0);
+            expect(ENUMS.B.equals(0)).to.be.equal(true);
+        });
     });
 
     describe('get method test', function() {
