@@ -15,6 +15,8 @@ describe('Enum', function() {
             expect(ENUMS.B === 1).to.be.equal(false);
             expect(ENUMS.B.getValue()).to.be.equal(1);
             expect(ENUMS.B.equals(1)).to.be.equal(true);
+            expect(ENUMS.B.v()).to.be.equal(1);
+            expect(ENUMS.B.eq(1)).to.be.equal(true);
         });
 
         it('default value "A B C"', function() {
@@ -23,8 +25,8 @@ describe('Enum', function() {
             expect(+ENUMS.B).to.be.equal(1);
             expect(ENUMS.B == 1).to.be.equal(true);
             expect(ENUMS.B === 1).to.be.equal(false);
-            expect(ENUMS.B.getValue()).to.be.equal(1);
-            expect(ENUMS.B.equals(1)).to.be.equal(true);
+            expect(ENUMS.B.v()).to.be.equal(1);
+            expect(ENUMS.B.eq(1)).to.be.equal(true);
         });
 
         it('default value "A;B;C"', function() {
@@ -33,8 +35,8 @@ describe('Enum', function() {
             expect(+ENUMS.B).to.be.equal(1);
             expect(ENUMS.B == 1).to.be.equal(true);
             expect(ENUMS.B === 1).to.be.equal(false);
-            expect(ENUMS.B.getValue()).to.be.equal(1);
-            expect(ENUMS.B.equals(1)).to.be.equal(true);
+            expect(ENUMS.B.v()).to.be.equal(1);
+            expect(ENUMS.B.eq(1)).to.be.equal(true);
         });
 
         it('default value [A,B,C]', function() {
@@ -43,8 +45,8 @@ describe('Enum', function() {
             expect(+ENUMS.B).to.be.equal(1);
             expect(ENUMS.B == 1).to.be.equal(true);
             expect(ENUMS.B === 1).to.be.equal(false);
-            expect(ENUMS.B.getValue()).to.be.equal(1);
-            expect(ENUMS.B.equals(1)).to.be.equal(true);
+            expect(ENUMS.B.v()).to.be.equal(1);
+            expect(ENUMS.B.eq(1)).to.be.equal(true);
         });
 
         it('default value [{A},{B},{C}]', function() {
@@ -57,8 +59,8 @@ describe('Enum', function() {
             expect(+ENUMS.B).to.be.equal(1);
             expect(ENUMS.B == 1).to.be.equal(true);
             expect(ENUMS.B === 1).to.be.equal(false);
-            expect(ENUMS.B.getValue()).to.be.equal(1);
-            expect(ENUMS.B.equals(1)).to.be.equal(true);
+            expect(ENUMS.B.v()).to.be.equal(1);
+            expect(ENUMS.B.eq(1)).to.be.equal(true);
         });
 
         it('default value [{A},{B},{C}]', function() {
@@ -71,8 +73,8 @@ describe('Enum', function() {
             expect(+ENUMS.B).to.be.equal(0);
             expect(ENUMS.B == 0).to.be.equal(true);
             expect(ENUMS.B === 0).to.be.equal(false);
-            expect(ENUMS.B.getValue()).to.be.equal(0);
-            expect(ENUMS.B.equals(0)).to.be.equal(true);
+            expect(ENUMS.B.v()).to.be.equal(0);
+            expect(ENUMS.B.eq(0)).to.be.equal(true);
         });
     });
 
@@ -80,6 +82,7 @@ describe('Enum', function() {
         it('default value "A,B,C"', function() {
             var ENUMS = new Enum('A,B,C');
             expect(ENUMS.B.getKey()).to.be.equal('B');
+            expect(ENUMS.B.k()).to.be.equal('B');
             expect(ENUMS.getEnumKey(1)).to.be.equal('B');
             expect(ENUMS.getEnumKeyName(1)).to.be.equal('B');
             expect(ENUMS.getEnum(1).getKey()).to.be.equal('B');

@@ -32,10 +32,12 @@ Value.prototype.valueOf = function() {
     return this._getValue();
 };
 
+Value.prototype.v =
 Value.prototype.getValue = function() {
     return this._getValue();
 };
 
+Value.prototype.k =
 Value.prototype.getKey = function() {
     return this._getKey();
 };
@@ -44,6 +46,7 @@ Value.prototype.toString = function() {
     return this._getValue() + '';
 };
 
+Value.prototype.eq =
 Value.prototype.equals = function(val) {
     return this._getValue() === val;
 };

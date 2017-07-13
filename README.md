@@ -41,7 +41,7 @@ You can name the custom property whatever you want, but you can only access the 
 
 ## compare
 
-The value of the Enum class is not a Number type, it cannot be compare to a number with `===` directly. Instead, method `equals` is recommanded, or you can convert it to Number type explicitly.
+The value of the Enum class is not a Number type, it cannot be compare to a number with `===` directly. Instead, method `equals` or `eq` is recommanded, or you can convert it to Number type explicitly.
 
 ```javascript
 var ENUMS = new ('A,B');
@@ -49,7 +49,10 @@ var ENUMS = new ('A,B');
 ENUMS.A == 0;           // true, not recommanded
 ENUMS.A === 0;          // false
 +ENUMS.A === 0;         // true
+ENUMS.getValue() === 0; // true
+ENUMS.v() === 0;        // true
 ENUMS.A.equals(0);      // true
+ENUMS.A.eq(0);          // true
 ```
 
 ## get
@@ -68,6 +71,7 @@ GREETING.getEnum(300).getGreeting();           // 你好
 GREETING.CHINESE.getGreeting();                // 你好
 GREETING.getEnum(function(item){
     return item.getKey() === 'CHINESE';
+    // return item.k() === 'CHINESE';
 }).getGreeting();                               // 你好
 ```
 
@@ -89,4 +93,14 @@ var arr = GREETING.map(function(item, key){
     return key;
 });
 // [ 'ENGLISH', 'DEUTSCH', 'CHINESE' ]
+```
+
+## filter
+
+```javascript
+var TYPE = new Enum('A,B,C');
+var arr = TYPE.filter(function(item, key){
+    return item.getValue() > 0;
+});
+// [TYPE.B, TYPE.C]
 ```
