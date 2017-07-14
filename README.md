@@ -104,3 +104,11 @@ var arr = TYPE.filter(function(item, key){
 });
 // [TYPE.B, TYPE.C]
 ```
+
+## keys
+
+```javascript
+var TYPE = new Enum('A,B,C');
+var keys = TYPE.keys();
+// ['A', 'B', 'C']
+```
