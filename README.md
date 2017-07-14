@@ -30,7 +30,7 @@ var PETS = new Enum([
 ]);     // DOG: 100, CAT: 200, LIZARD: 300
 
 PETS.DOG.getName();               // DingDong
-PETS.getEnum(300).getName();        // Keith
+PETS.find(300).getName();        // Keith
 ```
 
 In some cases, you might connect your enum keys to some other info, so you can just create your enum with an Object array, storing your relative infomation with your enum keys.
@@ -66,10 +66,10 @@ var GREETING = new ([
     { key: 'CHINESE', greeting: '你好', value: 300 },
 ]);
 
-GREETING.getEnum(300);                         // GREETING.CHINESE
-GREETING.getEnum(300).getGreeting();           // 你好
+GREETING.find(300);                         // GREETING.CHINESE
+GREETING.find(300).getGreeting();           // 你好
 GREETING.CHINESE.getGreeting();                // 你好
-GREETING.getEnum(function(item){
+GREETING.find(function(item){
     return item.getKey() === 'CHINESE';
     // return item.k() === 'CHINESE';
 }).getGreeting();                               // 你好

@@ -85,8 +85,8 @@ describe('Enum', function() {
             expect(ENUMS.B.k()).to.be.equal('B');
             expect(ENUMS.getEnumKey(1)).to.be.equal('B');
             expect(ENUMS.getEnumKeyName(1)).to.be.equal('B');
-            expect(ENUMS.getEnum(1).getKey()).to.be.equal('B');
-            expect(ENUMS.getEnum(function(item){
+            expect(ENUMS.find(1).getKey()).to.be.equal('B');
+            expect(ENUMS.find(function(item){
                 return item.getValue() === 1;
             }).getKey()).to.be.equal('B');
         });
@@ -99,7 +99,7 @@ describe('Enum', function() {
             ]);
             expect(ENUMS.B.getKey()).to.be.equal('B');
             expect(ENUMS.B.getName()).to.be.equal('b');
-            expect(ENUMS.getEnum(1).getKey()).to.be.equal('B');
+            expect(ENUMS.find(1).getKey()).to.be.equal('B');
             expect(ENUMS.getEnumKey(1)).to.be.equal('B');
             expect(ENUMS.getEnumKeyName(1)).to.be.equal('B');
         });
@@ -179,7 +179,51 @@ describe('Enum', function() {
         });
     });
 
+    describe('keys test', function() {
+        it('Enum keys', function() {
+            var k = ['A', 'B', 'C'];
+            var ENUMS = new Enum(k);
+            var keys = ENUMS.keys();
+            keys.forEach(function(key, index) {
+                expect(key).to.be.equal(k[index]);
+            });
+        });
+    });
+
     describe('abnormal define test', function() {
+        it('Enum cannot be defined with undefined', function() {
+            var ENUMS = new Enum();
+            expect(Object.keys(ENUMS).length).to.be.equal(0);
+        });
+
+        it('Enum cannot be defined with []', function() {
+            var ENUMS = new Enum([]);
+            expect(Object.keys(ENUMS).length).to.be.equal(0);
+        });
+
+        it('Enum cannot be defined with ""', function() {
+            var ENUMS = new Enum('');
+            expect(Object.keys(ENUMS).length).to.be.equal(0);
+        });
+
+        it('Enum cannot be defined with number', function() {
+            var ENUMS = new Enum(1);
+            expect(Object.keys(ENUMS).length).to.be.equal(0);
+        });
+
+        it('Enum cannot be defined with function', function() {
+            var ENUMS = new Enum(function() {});
+            expect(Object.keys(ENUMS).length).to.be.equal(0);
+        });
+
+        it('Enum cannot be defined with object', function() {
+            var ENUMS = new Enum([
+                {
+                    value: 0
+                }
+            ]);
+            expect(Object.keys(ENUMS).length).to.be.equal(0);
+        });
     });
 
     describe('invalid set test', function() {
@@ -190,6 +234,10 @@ describe('Enum', function() {
             } catch(e) {
 
             }
+            var test = new Enum('A,B,C');
+            var keys = test.keys();
+            console.log(keys);
+
             expect(+ENUMS.A).to.be.equal(0);
         });
     });
