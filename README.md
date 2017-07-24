@@ -70,7 +70,7 @@ GREETING.find(300);                         // GREETING.CHINESE
 GREETING.find(300).getGreeting();           // 你好
 GREETING.CHINESE.getGreeting();                // 你好
 GREETING.find(function(item){
-    return item.getKey() === 'CHINESE';
+    return item.k() === 'CHINESE';
     // return item.k() === 'CHINESE';
 }).getGreeting();                               // 你好
 ```
@@ -79,7 +79,7 @@ GREETING.find(function(item){
 
 ```javascript
 GREETING.forEach(function(item, key){
-    console.log(key, item.getValue());
+    console.log(key, item.v());
     // ENGLISH 100
     // DEUTSCH 200
     // CHINESE 300
@@ -100,7 +100,7 @@ var arr = GREETING.map(function(item, key){
 ```javascript
 var TYPE = new Enum('A,B,C');
 var arr = TYPE.filter(function(item, key){
-    return item.getValue() > 0;
+    return item.v() > 0;
 });
 // [TYPE.B, TYPE.C]
 ```
