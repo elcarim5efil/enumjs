@@ -5,7 +5,7 @@ var defaultConfig = {
     index: './index.js',
   },
   output: {
-    filename: '/dist/enum.js',
+    filename: './dist/enum.js',
     library: 'Enum',
     libraryTarget: 'umd',
   },
