@@ -1,5 +1,6 @@
 import * as _ from './utils.js';
 import Value from './value.js';
+import m from './methods.js';
 
 export default function Enum(enums, startIndex) {
   startIndex = parseInt(startIndex || 0) || 0;
@@ -23,18 +24,19 @@ function initEnums(enums, option) {
   }
 
   _.setUnenumerable( obj.map, 'length', obj.list.length );
-  _.setUnenumerable( obj.map, 'find', _.partialApply(find, obj) );
-  _.setUnenumerable( obj.map, 'forEach', _.partialApply(forEach, obj) );
-  _.setUnenumerable( obj.map, 'map', _.partialApply(map, obj) );
-  _.setUnenumerable( obj.map, 'filter', _.partialApply(filter, obj) );
-  _.setUnenumerable( obj.map, 'keys', _.partialApply(keys, obj) );
+  _.setUnenumerable( obj.map, 'find', _.partialApply(m.find, obj) );
+  _.setUnenumerable( obj.map, 'forEach', _.partialApply(m.forEach, obj) );
+  _.setUnenumerable( obj.map, 'map', _.partialApply(m.map, obj) );
+  _.setUnenumerable( obj.map, 'filter', _.partialApply(m.filter, obj) );
+  _.setUnenumerable( obj.map, 'keys', _.partialApply(m.keys, obj) );
 
-  _.setUnenumerable( obj.map, 'getEnumKey', _.partialApply(getEnumKey, obj) );
-  _.setUnenumerable( obj.map, 'getEnumKeyName', _.partialApply(getEnumKeyName, obj) );
-  _.setUnenumerable( obj.map, 'getEnum', _.partialApply(find, obj) );
+  _.setUnenumerable( obj.map, 'getEnumKey', _.partialApply(m.getEnumKey, obj) );
+  _.setUnenumerable( obj.map, 'getEnumKeyName', _.partialApply(m.getEnumKeyName, obj) );
+  _.setUnenumerable( obj.map, 'getEnum', _.partialApply(m.find, obj) );
 
   return obj;
 }
+
 
 function createEnumFromString(str, option) {
   var spliter = /\s|,|;|:/;
@@ -85,72 +87,3 @@ function createEnum(option) {
 
   _.setUnwritable(map, key, new Value(val, key, item));
 }
-
-function getEnumKey(enumObj, val) {
-  return find(enumObj, val).getKey();
-}
-
-function getEnumKeyName(enumObj, val) {
-  return getEnumKey(enumObj, val);
-}
-
-function find(enumObj, val) {
-  var list = enumObj.list;
-  var map = enumObj.map;
-  var res = null;
-  var match = _.isFunction(val) ? val : itemEqualsVal;
-  list.some(function(key) {
-    if(match(map[key], val)) {
-      res = map[key];
-      return true;
-    }
-    return false;
-  });
-  return res;
-}
-
-function itemEqualsVal(item, val) {
-  return item.equals(val);
-}
-
-function map(enumObj, callback) {
-  var list = enumObj.list;
-  var map = enumObj.map;
-  return list.map(function(key) {
-    var res = {};
-    if(_.isFunction(callback)){
-      res = callback(map[key], key);
-    }
-    return res;
-  });
-}
-
-function forEach(enumObj, callback) {
-  enumObj.list.forEach(function(key) {
-    if(_.isFunction(callback)){
-      callback(enumObj.map[key], key);
-    }
-  });
-}
-
-function filter(enumObj, callback) {
-  var list = enumObj.list;
-  var map = enumObj.map;
-  var arr = list.filter(function(key) {
-    if(_.isFunction(callback)){
-      return callback(map[key], key);
-    }
-    return true;
-  });
-
-  return arr.map(function(key) {
-    return map[key];
-  });
-}
-
-function keys(enumObj) {
-  return enumObj.list.map(function(key) {
-    return key;
-  });
-}
-

@@ -5,6 +5,10 @@ module.exports = {
         "es6": true,
         "node": true
     },
+    "globals": {
+        "it": true,
+        "describe": true,
+    },
     "extends": "eslint:recommended",
     "parserOptions": {
         "sourceType": "module"
@@ -12,7 +16,7 @@ module.exports = {
     "rules": {
         "indent": [
             "error",
-            2    
+            2
         ],
         "linebreak-style": [
             "error",

@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -84,11 +84,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return isObject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isString; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return isFunction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return isFunction; });
 /* unused harmony export isUndefined */
 /* harmony export (immutable) */ __webpack_exports__["c"] = setUnenumerable;
 /* harmony export (immutable) */ __webpack_exports__["f"] = setUnwritable;
-/* harmony export (immutable) */ __webpack_exports__["h"] = firstUpperCase;
+/* harmony export (immutable) */ __webpack_exports__["g"] = firstUpperCase;
 /* harmony export (immutable) */ __webpack_exports__["d"] = partialApply;
 
 
@@ -148,8 +148,10 @@ function partialApply(fn) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__value_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__value_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__methods_js__ = __webpack_require__(2);
 /* harmony export (immutable) */ __webpack_exports__["a"] = Enum;
+
 
 
 
@@ -175,18 +177,19 @@ function initEnums(enums, option) {
   }
 
   __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'length', obj.list.length );
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'find', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](find, obj) );
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'forEach', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](forEach, obj) );
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'map', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](map, obj) );
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'filter', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](filter, obj) );
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'keys', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](keys, obj) );
+  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'find', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].find, obj) );
+  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'forEach', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].forEach, obj) );
+  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'map', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].map, obj) );
+  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'filter', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].filter, obj) );
+  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'keys', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].keys, obj) );
 
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'getEnumKey', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](getEnumKey, obj) );
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'getEnumKeyName', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](getEnumKeyName, obj) );
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'getEnum', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](find, obj) );
+  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'getEnumKey', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].getEnumKey, obj) );
+  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'getEnumKeyName', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].getEnumKeyName, obj) );
+  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'getEnum', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].find, obj) );
 
   return obj;
 }
+
 
 function createEnumFromString(str, option) {
   var spliter = /\s|,|;|:/;
@@ -238,78 +241,96 @@ function createEnum(option) {
   __WEBPACK_IMPORTED_MODULE_0__utils_js__["f" /* setUnwritable */](map, key, new __WEBPACK_IMPORTED_MODULE_1__value_js__["a" /* default */](val, key, item));
 }
 
-function getEnumKey(enumObj, val) {
-  return find(enumObj, val).getKey();
-}
-
-function getEnumKeyName(enumObj, val) {
-  return getEnumKey(enumObj, val);
-}
-
-function find(enumObj, val) {
-  var list = enumObj.list;
-  var map = enumObj.map;
-  var res = null;
-  var match = __WEBPACK_IMPORTED_MODULE_0__utils_js__["g" /* isFunction */](val) ? val : itemEqualsVal;
-  list.some(function(key) {
-    if(match(map[key], val)) {
-      res = map[key];
-      return true;
-    }
-    return false;
-  });
-  return res;
-}
-
-function itemEqualsVal(item, val) {
-  return item.equals(val);
-}
-
-function map(enumObj, callback) {
-  var list = enumObj.list;
-  var map = enumObj.map;
-  return list.map(function(key) {
-    var res = {};
-    if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["g" /* isFunction */](callback)){
-      res = callback(map[key], key);
-    }
-    return res;
-  });
-}
-
-function forEach(enumObj, callback) {
-  enumObj.list.forEach(function(key) {
-    if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["g" /* isFunction */](callback)){
-      callback(enumObj.map[key], key);
-    }
-  });
-}
-
-function filter(enumObj, callback) {
-  var list = enumObj.list;
-  var map = enumObj.map;
-  var arr = list.filter(function(key) {
-    if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["g" /* isFunction */](callback)){
-      return callback(map[key], key);
-    }
-    return true;
-  });
-
-  return arr.map(function(key) {
-    return map[key];
-  });
-}
-
-function keys(enumObj) {
-  return enumObj.list.map(function(key) {
-    return key;
-  });
-}
-
-
 
 /***/ }),
 /* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_js__ = __webpack_require__(0);
+
+
+var _ = {
+  getEnumKey(enumObj, val) {
+    return _.find(enumObj, val).getKey();
+  },
+
+  getEnumKeyName(enumObj, val) {
+    return _.getEnumKey(enumObj, val);
+  },
+
+  find(enumObj, val) {
+    var list = enumObj.list;
+    var map = enumObj.map;
+    var res = null;
+    var match = __WEBPACK_IMPORTED_MODULE_0__utils_js__["h" /* isFunction */](val) ? val : _.itemEqualsVal;
+    list.some(function(key) {
+      if(match(map[key], val)) {
+        res = map[key];
+        return true;
+      }
+      return false;
+    });
+    return res;
+  },
+
+  itemEqualsVal(item, val) {
+    return item.equals(val);
+  },
+
+  map(enumObj, callback) {
+    var list = enumObj.list;
+    var map = enumObj.map;
+    return list.map(function(key) {
+      var res = {};
+      if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["h" /* isFunction */](callback)){
+        res = callback(map[key], key);
+      }
+      return res;
+    });
+  },
+
+  forEach(enumObj, callback) {
+    enumObj.list.forEach(function(key) {
+      if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["h" /* isFunction */](callback)){
+        callback(enumObj.map[key], key);
+      }
+    });
+  },
+
+  filter(enumObj, callback) {
+    var list = enumObj.list;
+    var map = enumObj.map;
+    var arr = list.filter(function(key) {
+      if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["h" /* isFunction */](callback)){
+        return callback(map[key], key);
+      }
+      return true;
+    });
+
+    return arr.map(function(key) {
+      return map[key];
+    });
+  },
+
+  keys(enumObj) {
+    return enumObj.list.map(function(key) {
+      return key;
+    });
+  },
+
+  values(enumObj) {
+    return enumObj.list.map(function(key) {
+      return enumObj[key].value;
+    });
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = _;
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -337,7 +358,7 @@ var Value = function(_val, _key, obj) {
 
   function createExtraValue(name, value) {
     var store = value;
-    self['get' + __WEBPACK_IMPORTED_MODULE_0__utils_js__["h" /* firstUpperCase */](name)] = function() {
+    self['get' + __WEBPACK_IMPORTED_MODULE_0__utils_js__["g" /* firstUpperCase */](name)] = function() {
       return store;
     };
   }
@@ -372,15 +393,13 @@ Value.prototype.equals = function(val) {
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_base_enum_js__ = __webpack_require__(1);
 
-
-var Library = __WEBPACK_IMPORTED_MODULE_0_base_enum_js__["a" /* default */];
 
 /* harmony default export */ __webpack_exports__["default"] = __WEBPACK_IMPORTED_MODULE_0_base_enum_js__["a" /* default */];
 
