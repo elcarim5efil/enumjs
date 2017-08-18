@@ -239,4 +239,21 @@ describe('Enum', function() {
     });
   });
 
+  describe('pick', function() {
+    it('Enum item cannot be modified', function() {
+      var ENUMS = new Enum([{
+        value: 1,
+        key: 'A',
+        name: 'ABC'
+      }]);
+
+      var a = ENUMS.A.pick(['name', 'value']);
+      console.log(typeof(''+ENUMS.A));
+      expect(a).to.be.deep.equal({
+        name: 'ABC',
+        value: 1
+      });
+    });
+  });
+
 });

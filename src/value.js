@@ -1,6 +1,7 @@
 import * as _ from './utils.js';
 
 var Value = function(_val, _key, obj) {
+  var store = {};
   var value = _val;
   var key = _key;
   var self = this;
@@ -11,8 +12,12 @@ var Value = function(_val, _key, obj) {
   this._getKey = function() {
     return key;
   };
+  this._getStore = function() {
+    return store;
+  };
 
   for(var name in obj) {
+    store[name] = obj[name];
     if(name === 'key' || name === 'value') {
       continue;
     }
@@ -20,9 +25,8 @@ var Value = function(_val, _key, obj) {
   }
 
   function createExtraValue(name, value) {
-    var store = value;
     self['get' + _.firstUpperCase(name)] = function() {
-      return store;
+      return value;
     };
   }
   return this;
@@ -51,5 +55,15 @@ Value.prototype.equals = function(val) {
   return this._getValue() === val;
 };
 
+Value.prototype.pick = function(props) {
+  var store = this._getStore();
+  var result = {};
+  if(_.isArray(props)) {
+    props.forEach((prop) => {
+      result[prop] = store[prop];
+    });
+  }
+  return result;
+};
 
 export default Value;

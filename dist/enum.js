@@ -351,6 +351,7 @@ var _ = {
 
 
 var Value = function(_val, _key, obj) {
+  var store = {};
   var value = _val;
   var key = _key;
   var self = this;
@@ -361,8 +362,12 @@ var Value = function(_val, _key, obj) {
   this._getKey = function() {
     return key;
   };
+  this._getStore = function() {
+    return store;
+  };
 
   for(var name in obj) {
+    store[name] = obj[name];
     if(name === 'key' || name === 'value') {
       continue;
     }
@@ -370,9 +375,8 @@ var Value = function(_val, _key, obj) {
   }
 
   function createExtraValue(name, value) {
-    var store = value;
     self['get' + __WEBPACK_IMPORTED_MODULE_0__utils_js__["g" /* firstUpperCase */](name)] = function() {
-      return store;
+      return value;
     };
   }
   return this;
@@ -401,6 +405,16 @@ Value.prototype.equals = function(val) {
   return this._getValue() === val;
 };
 
+Value.prototype.pick = function(props) {
+  var store = this._getStore();
+  var result = {};
+  if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["b" /* isArray */](props)) {
+    props.forEach((prop) => {
+      result[prop] = store[prop];
+    });
+  }
+  return result;
+};
 
 /* harmony default export */ __webpack_exports__["a"] = (Value);
 
