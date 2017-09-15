@@ -9,7 +9,7 @@
         "test": "jest --no-cache",
         "test:ci": "jest --coverage --ci",
         "coverage": "jest --no-cache --coverage",
-        "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+        "coveralls": "cat ./coverage/lcov.info | \"./node_modules/coveralls/bin/coveralls.js\"",
         "prepublishOnly": "npm run prod"
     },
     "keywords": [
