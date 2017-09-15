@@ -11,7 +11,7 @@ install:
 - npm install --only=dev
 
 script:
-- npm prod
+- npm run prod
 
 after_script:
 - npm run test:ci
