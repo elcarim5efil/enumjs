@@ -4,7 +4,7 @@
     "description": "Enum class for javascript",
     "main": "/src/index.js",
     "scripts": {
-        "dev": "jest --watchAll --no-cache",
+        "dev": "jest --watch --no-cache",
         "prod": "rollup -c",
         "test": "jest --no-cache",
         "coverage": "jest --no-cache --coverage",

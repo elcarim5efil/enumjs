@@ -11,7 +11,8 @@ install:
 - npm install --only=dev
 
 script:
-- npm build
+- npm prod
 
 after_script:
+- npm run test
 - npm run coveralls
