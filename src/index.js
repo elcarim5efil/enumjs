@@ -1,10 +1,10 @@
 import Enum from './Enum';
 
-export default function _enum(enums, startIndex) {
-  startIndex = parseInt(startIndex || 0) || 0;
-  const enumObj = new Enum(enums, {
-    startIndex
-  });
+export default class _enum extends Enum {
+  constructor(enums, startIndex) {
+    startIndex = parseInt(startIndex || 0) || 0;
+    super(enums, {startIndex});
 
-  return enumObj.map;
+    return this.map;
+  }
 }

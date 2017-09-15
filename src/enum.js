@@ -2,7 +2,7 @@ import * as _ from './utils';
 import Value from './Value';
 import methods from './methods';
 
-class EnumMap {
+class Enum {
   constructor(src, option) {
     const enums = this.formatEnums(src, option);
 
@@ -75,4 +75,4 @@ class EnumMap {
   }
 }
 
-export default EnumMap;
+export default Enum;
