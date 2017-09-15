@@ -1,69 +1,92 @@
-import * as _ from './utils.js';
+import * as _ from './utils';
 
-var Value = function(_val, _key, obj) {
-  var store = {};
-  var value = _val;
-  var key = _key;
-  var self = this;
+class Value {
+  constructor(option) {
+    const store = {};
+    const value = option.value;
+    const key = option.key;
+    const self = this;
 
-  this._getValue = function() {
-    return value;
-  };
-  this._getKey = function() {
-    return key;
-  };
-  this._getStore = function() {
-    return store;
-  };
-
-  for(var name in obj) {
-    store[name] = obj[name];
-    if(name === 'key' || name === 'value') {
-      continue;
-    }
-    createExtraValue(name, obj[name]);
-  }
-
-  function createExtraValue(name, value) {
-    self['get' + _.firstUpperCase(name)] = function() {
+    this._getValue = function() {
       return value;
     };
+    this._getKey = function() {
+      return key;
+    };
+    this._getStore = function() {
+      return store;
+    };
+
+    for(var name in option) {
+      store[name] = option[name];
+      if(name === 'key' || name === 'value') {
+        continue;
+      }
+      createExtraValue(name, option[name]);
+    }
+
+    function createExtraValue(name, value) {
+      self['get' + _.firstUpperCase(name)] = function() {
+        return value;
+      };
+    }
+    return this;
   }
-  return this;
-};
 
-Value.prototype.valueOf = function() {
-  return this._getValue();
-};
-
-Value.prototype.v =
-Value.prototype.getValue = function() {
-  return this._getValue();
-};
-
-Value.prototype.k =
-Value.prototype.getKey = function() {
-  return this._getKey();
-};
-
-Value.prototype.toString = function() {
-  return this._getValue() + '';
-};
-
-Value.prototype.eq =
-Value.prototype.equals = function(val) {
-  return this._getValue() === val;
-};
-
-Value.prototype.pick = function(props) {
-  var store = this._getStore();
-  var result = {};
-  if(_.isArray(props)) {
-    props.forEach((prop) => {
-      result[prop] = store[prop];
-    });
+  getValue() {
+    return this._getValue();
   }
-  return result;
-};
+
+  v() {
+    return this._getValue();
+  }
+
+  getKey() {
+    return this._getKey();
+  }
+
+  k() {
+    return this._getKey();
+  }
+
+
+  eq(val) {
+    return this._getValue() === val;
+  }
+
+  equals(val) {
+    return this._getValue() === val;
+  }
+
+  valueOf() {
+    return this._getValue();
+  }
+
+  toString() {
+    return this._getValue() + '';
+  }
+
+  pick(props) {
+    const store = this._getStore();
+    const dest = {};
+    if(_.isArray(props)) {
+      props.forEach((prop) => {
+        dest[prop] = store[prop];
+      });
+    }
+    return dest;
+  }
+
+  pickAs(props) {
+    const store = this._getStore();
+    const dest = {};
+    if(_.isObject(props)) {
+      for(let key in props) {
+        dest[props[key]] = store[key];
+      }
+    }
+    return dest;
+  }
+}
 
 export default Value;

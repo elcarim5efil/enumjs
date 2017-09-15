@@ -1,4 +1,4 @@
-import * as ut from './utils.js';
+import * as ut from './utils';
 
 var _ = {
   getEnumKey(enumObj, val) {
@@ -32,7 +32,7 @@ var _ = {
     var list = enumObj.list;
     var map = enumObj.map;
     return list.map(function(key) {
-      var res = {};
+      var res;
       if(ut.isFunction(callback)){
         res = callback(map[key], key);
       }
@@ -71,7 +71,7 @@ var _ = {
 
   values(enumObj) {
     return enumObj.list.map(function(key) {
-      return enumObj[key].value;
+      return enumObj.map[key].v();
     });
   }
 };

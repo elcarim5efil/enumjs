@@ -1,97 +1,8 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["Enum"] = factory();
-	else
-		root["Enum"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return isObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isString; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return isFunction; });
-/* unused harmony export isUndefined */
-/* harmony export (immutable) */ __webpack_exports__["c"] = setUnenumerable;
-/* harmony export (immutable) */ __webpack_exports__["f"] = setUnwritable;
-/* harmony export (immutable) */ __webpack_exports__["g"] = firstUpperCase;
-/* harmony export (immutable) */ __webpack_exports__["d"] = partialApply;
-
-
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.Enum = factory());
+}(this, (function () { 'use strict';
 
 function isType(type) {
   return function(obj) {
@@ -141,19 +52,166 @@ function partialApply(fn) {
   };
 }
 
+class Value {
+  constructor(_val, _key, obj) {
+    const store = {};
+    const value = _val;
+    const key = _key;
+    const self = this;
 
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+    this._getValue = function() {
+      return value;
+    };
+    this._getKey = function() {
+      return key;
+    };
+    this._getStore = function() {
+      return store;
+    };
 
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = Enum;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__value_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__methods_js__ = __webpack_require__(3);
+    for(var name in obj) {
+      store[name] = obj[name];
+      if(name === 'key' || name === 'value') {
+        continue;
+      }
+      createExtraValue(name, obj[name]);
+    }
+
+    function createExtraValue(name, value) {
+      self['get' + firstUpperCase(name)] = function() {
+        return value;
+      };
+    }
+    return this;
+  }
+
+  getValue() {
+    return this._getValue();
+  }
+
+  v() {
+    return this._getValue();
+  }
+
+  getKey() {
+    return this._getKey();
+  }
+
+  k() {
+    return this._getKey();
+  }
 
 
+  eq(val) {
+    return this._getValue() === val;
+  }
 
+  equals(val) {
+    return this._getValue() === val;
+  }
+
+  valueOf() {
+    return this._getValue();
+  }
+
+  toString() {
+    return this._getValue() + '';
+  }
+
+  pick(props) {
+    const store = this._getStore();
+    const result = {};
+    if(isArray(props)) {
+      props.forEach((prop) => {
+        result[prop] = store[prop];
+      });
+    }
+    return result;
+  }
+
+  pickAs(props) {
+    const store = this._getStore();
+    if(isObject(props)) {
+      
+    }
+  }
+}
+
+var _ = {
+  getEnumKey(enumObj, val) {
+    return _.find(enumObj, val).getKey();
+  },
+
+  getEnumKeyName(enumObj, val) {
+    return _.getEnumKey(enumObj, val);
+  },
+
+  find(enumObj, val) {
+    var list = enumObj.list;
+    var map = enumObj.map;
+    var res = null;
+    var match = isFunction(val) ? val : _.itemEqualsVal;
+    list.some(function(key) {
+      if(match(map[key], val)) {
+        res = map[key];
+        return true;
+      }
+      return false;
+    });
+    return res;
+  },
+
+  itemEqualsVal(item, val) {
+    return item.equals(val);
+  },
+
+  map(enumObj, callback) {
+    var list = enumObj.list;
+    var map = enumObj.map;
+    return list.map(function(key) {
+      var res = {};
+      if(isFunction(callback)){
+        res = callback(map[key], key);
+      }
+      return res;
+    });
+  },
+
+  forEach(enumObj, callback) {
+    enumObj.list.forEach(function(key) {
+      if(isFunction(callback)){
+        callback(enumObj.map[key], key);
+      }
+    });
+  },
+
+  filter(enumObj, callback) {
+    var list = enumObj.list;
+    var map = enumObj.map;
+    var arr = list.filter(function(key) {
+      if(isFunction(callback)){
+        return callback(map[key], key);
+      }
+      return true;
+    });
+
+    return arr.map(function(key) {
+      return map[key];
+    });
+  },
+
+  keys(enumObj) {
+    return enumObj.list.map(function(key) {
+      return key;
+    });
+  },
+
+  values(enumObj) {
+    return enumObj.list.map(function(key) {
+      return enumObj[key].value;
+    });
+  }
+};
 
 function Enum(enums, startIndex) {
   startIndex = parseInt(startIndex || 0) || 0;
@@ -170,22 +228,22 @@ function initEnums(enums, option) {
     list: [],
   };
 
-  if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["a" /* isString */](enums)) {
+  if(isString(enums)) {
     obj = createEnumFromString(enums, option);
-  } else if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["b" /* isArray */](enums)) {
+  } else if(isArray(enums)) {
     obj = createEnumFromArray(enums, option);
   }
 
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'length', obj.list.length );
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'find', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].find, obj) );
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'forEach', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].forEach, obj) );
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'map', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].map, obj) );
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'filter', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].filter, obj) );
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'keys', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].keys, obj) );
+  setUnenumerable( obj.map, 'length', obj.list.length );
+  setUnenumerable( obj.map, 'find', partialApply(_.find, obj) );
+  setUnenumerable( obj.map, 'forEach', partialApply(_.forEach, obj) );
+  setUnenumerable( obj.map, 'map', partialApply(_.map, obj) );
+  setUnenumerable( obj.map, 'filter', partialApply(_.filter, obj) );
+  setUnenumerable( obj.map, 'keys', partialApply(_.keys, obj) );
 
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'getEnumKey', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].getEnumKey, obj) );
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'getEnumKeyName', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].getEnumKeyName, obj) );
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["c" /* setUnenumerable */]( obj.map, 'getEnum', __WEBPACK_IMPORTED_MODULE_0__utils_js__["d" /* partialApply */](__WEBPACK_IMPORTED_MODULE_2__methods_js__["a" /* default */].find, obj) );
+  setUnenumerable( obj.map, 'getEnumKey', partialApply(_.getEnumKey, obj) );
+  setUnenumerable( obj.map, 'getEnumKeyName', partialApply(_.getEnumKeyName, obj) );
+  setUnenumerable( obj.map, 'getEnum', partialApply(_.find, obj) );
 
   return obj;
 }
@@ -204,14 +262,14 @@ function createEnumFromArray(list, option) {
   };
   var startIndex = option.startIndex || 0;
   list.forEach(function(item, index){
-    if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["a" /* isString */](item)) {
+    if(isString(item)) {
       createEnum({
         list: result.list,
         map: result.map,
         key: item,
         val: index + startIndex,
       });
-    } else if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["e" /* isObject */](item) && item.key) {
+    } else if(isObject(item) && item.key) {
       createEnum({
         list: result.list,
         map: result.map,
@@ -238,187 +296,9 @@ function createEnum(option) {
 
   list.push(key);
 
-  __WEBPACK_IMPORTED_MODULE_0__utils_js__["f" /* setUnwritable */](map, key, new __WEBPACK_IMPORTED_MODULE_1__value_js__["a" /* default */](val, key, item));
+  setUnwritable(map, key, new Value(val, key, item));
 }
 
+return Enum;
 
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_base_enum_js__ = __webpack_require__(1);
-
-
-/* harmony default export */ __webpack_exports__["default"] = (__WEBPACK_IMPORTED_MODULE_0_base_enum_js__["a" /* default */]);
-
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_js__ = __webpack_require__(0);
-
-
-var _ = {
-  getEnumKey(enumObj, val) {
-    return _.find(enumObj, val).getKey();
-  },
-
-  getEnumKeyName(enumObj, val) {
-    return _.getEnumKey(enumObj, val);
-  },
-
-  find(enumObj, val) {
-    var list = enumObj.list;
-    var map = enumObj.map;
-    var res = null;
-    var match = __WEBPACK_IMPORTED_MODULE_0__utils_js__["h" /* isFunction */](val) ? val : _.itemEqualsVal;
-    list.some(function(key) {
-      if(match(map[key], val)) {
-        res = map[key];
-        return true;
-      }
-      return false;
-    });
-    return res;
-  },
-
-  itemEqualsVal(item, val) {
-    return item.equals(val);
-  },
-
-  map(enumObj, callback) {
-    var list = enumObj.list;
-    var map = enumObj.map;
-    return list.map(function(key) {
-      var res = {};
-      if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["h" /* isFunction */](callback)){
-        res = callback(map[key], key);
-      }
-      return res;
-    });
-  },
-
-  forEach(enumObj, callback) {
-    enumObj.list.forEach(function(key) {
-      if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["h" /* isFunction */](callback)){
-        callback(enumObj.map[key], key);
-      }
-    });
-  },
-
-  filter(enumObj, callback) {
-    var list = enumObj.list;
-    var map = enumObj.map;
-    var arr = list.filter(function(key) {
-      if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["h" /* isFunction */](callback)){
-        return callback(map[key], key);
-      }
-      return true;
-    });
-
-    return arr.map(function(key) {
-      return map[key];
-    });
-  },
-
-  keys(enumObj) {
-    return enumObj.list.map(function(key) {
-      return key;
-    });
-  },
-
-  values(enumObj) {
-    return enumObj.list.map(function(key) {
-      return enumObj[key].value;
-    });
-  }
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (_);
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_js__ = __webpack_require__(0);
-
-
-var Value = function(_val, _key, obj) {
-  var store = {};
-  var value = _val;
-  var key = _key;
-  var self = this;
-
-  this._getValue = function() {
-    return value;
-  };
-  this._getKey = function() {
-    return key;
-  };
-  this._getStore = function() {
-    return store;
-  };
-
-  for(var name in obj) {
-    store[name] = obj[name];
-    if(name === 'key' || name === 'value') {
-      continue;
-    }
-    createExtraValue(name, obj[name]);
-  }
-
-  function createExtraValue(name, value) {
-    self['get' + __WEBPACK_IMPORTED_MODULE_0__utils_js__["g" /* firstUpperCase */](name)] = function() {
-      return value;
-    };
-  }
-  return this;
-};
-
-Value.prototype.valueOf = function() {
-  return this._getValue();
-};
-
-Value.prototype.v =
-Value.prototype.getValue = function() {
-  return this._getValue();
-};
-
-Value.prototype.k =
-Value.prototype.getKey = function() {
-  return this._getKey();
-};
-
-Value.prototype.toString = function() {
-  return this._getValue() + '';
-};
-
-Value.prototype.eq =
-Value.prototype.equals = function(val) {
-  return this._getValue() === val;
-};
-
-Value.prototype.pick = function(props) {
-  var store = this._getStore();
-  var result = {};
-  if(__WEBPACK_IMPORTED_MODULE_0__utils_js__["b" /* isArray */](props)) {
-    props.forEach((prop) => {
-      result[prop] = store[prop];
-    });
-  }
-  return result;
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (Value);
-
-
-/***/ })
-/******/ ]);
-});
+})));

@@ -1,89 +1,78 @@
-import * as _ from './utils.js';
-import Value from './value.js';
-import m from './methods.js';
+import * as _ from './utils';
+import Value from './Value';
+import methods from './methods';
 
-export default function Enum(enums, startIndex) {
-  startIndex = parseInt(startIndex || 0) || 0;
-  var enumObj = initEnums(enums, {
-    startIndex: startIndex
-  });
+class EnumMap {
+  constructor(src, option) {
+    const enums = this.formatEnums(src, option);
 
-  return enumObj.map;
-}
+    this.map = this.createEnumMap(enums);
+    this.list = this.createEnumList(enums);
 
-function initEnums(enums, option) {
-  var obj = {
-    map: {},
-    list: [],
-  };
+    _.setUnenumerable(this.map, 'length', this.list.length);
 
-  if(_.isString(enums)) {
-    obj = createEnumFromString(enums, option);
-  } else if(_.isArray(enums)) {
-    obj = createEnumFromArray(enums, option);
+    this.mixin(methods);
+
+    return this;
   }
 
-  _.setUnenumerable( obj.map, 'length', obj.list.length );
-  _.setUnenumerable( obj.map, 'find', _.partialApply(m.find, obj) );
-  _.setUnenumerable( obj.map, 'forEach', _.partialApply(m.forEach, obj) );
-  _.setUnenumerable( obj.map, 'map', _.partialApply(m.map, obj) );
-  _.setUnenumerable( obj.map, 'filter', _.partialApply(m.filter, obj) );
-  _.setUnenumerable( obj.map, 'keys', _.partialApply(m.keys, obj) );
-
-  _.setUnenumerable( obj.map, 'getEnumKey', _.partialApply(m.getEnumKey, obj) );
-  _.setUnenumerable( obj.map, 'getEnumKeyName', _.partialApply(m.getEnumKeyName, obj) );
-  _.setUnenumerable( obj.map, 'getEnum', _.partialApply(m.find, obj) );
-
-  return obj;
-}
-
-
-function createEnumFromString(str, option) {
-  var spliter = /\s|,|;|:/;
-  var list = str.split(spliter);
-  return createEnumFromArray(list, option);
-}
-
-function createEnumFromArray(list, option) {
-  var result = {
-    list: [],
-    map: {},
-  };
-  var startIndex = option.startIndex || 0;
-  list.forEach(function(item, index){
-    if(_.isString(item)) {
-      createEnum({
-        list: result.list,
-        map: result.map,
-        key: item,
-        val: index + startIndex,
-      });
-    } else if(_.isObject(item) && item.key) {
-      createEnum({
-        list: result.list,
-        map: result.map,
-        key: item.key,
-        val: (item.value === undefined ? (index  + startIndex): item.value),
-        item: item,
-      });
+  mixin(methods) {
+    for(let key in methods) {
+      _.setUnenumerable(this.map, key, _.partialApply(methods[key], this));
     }
-  });
-  return result;
-}
-
-function createEnum(option) {
-  var key = option.key || '';
-  if(key === '') {
-    return;
   }
-  key = key.trim();
 
-  var map = option.map;
-  var list = option.list;
-  var val = option.val;
-  var item = option.item;
+  formatEnums(src, option) {
+    if(_.isString(src)) {
+      return this.formatEnumString(src, option);
+    } else if(_.isArray(src)) {
+      return this.formatEnumArray(src, option);
+    }
+    return [];
+  }
 
-  list.push(key);
+  formatEnumString(str, option) {
+    var spliter = /\s|,|;|:/;
+    var list = str.split(spliter)
+      .filter(key => key)
+      .map((key) => ({
+        key
+      }));
+    return this.formatEnumArray(list, option);
+  }
 
-  _.setUnwritable(map, key, new Value(val, key, item));
+  formatEnumArray(arr, option) {
+    var startIndex = option.startIndex || 0;
+    return arr.map((item, index) => {
+      if (_.isString(item)) {
+        return {
+          key: item,
+          value: startIndex + index
+        };
+      } else if (_.isObject(item)) {
+        item.value = item.value === undefined ? (index + startIndex) : item.value;
+        return item;
+      }
+    }).filter(item => item && item.key);
+  }
+
+  createEnumMap(arr) {
+    return arr.reduce((dest, item) => {
+      return this.createEnum(dest, item);
+    }, {});
+  }
+
+  createEnumList(arr) {
+    return arr.filter(item => item && item.key).map(item => item.key);
+  }
+
+  createEnum(host, option) {
+    var key = option.key;
+    key = key.trim();
+
+    _.setUnwritable(host, key, new Value(option));
+    return host;
+  }
 }
+
+export default EnumMap;

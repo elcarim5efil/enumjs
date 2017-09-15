@@ -112,3 +112,44 @@ var TYPE = new Enum('A,B,C');
 var keys = TYPE.keys();
 // ['A', 'B', 'C']
 ```
+
+## values
+
+```javascript
+var TYPE = new Enum('A,B,C');
+var keys = TYPE.values();
+// [0, 1, 2]
+```
+
+## pick
+
+```javascript
+var FRUIT = new Enum([
+  {
+    key: 'GRAPE',
+    name: 'grape',
+    color: 'purple'
+  }
+]);
+
+var grape = FRUIT.GRAPE.pick(['name', 'color'])
+// { name: 'grape', color: 'purple' }
+```
+
+## pickAs
+
+```javascript
+var FRUIT = new Enum([
+  {
+    key: 'GRAPE',
+    name: 'grape',
+    color: 'purple'
+  }
+]);
+
+var grape = FRUIT.GRAPE.pickAs({
+  name: 'fruit',
+  color: 'colour'
+});
+// { fruit: 'grape', colour: 'purple' }
+```
