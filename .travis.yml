@@ -14,5 +14,4 @@ script:
 - npm prod
 
 after_script:
-- npm run test
-- npm run coveralls
+- npm run test:ci
