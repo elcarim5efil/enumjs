@@ -2,3 +2,10 @@ src
 demo
 coverage
 node_modules
+package-lock.json
+.git
+.travis.yml
+rollup.config.js
+.eslintignore
+.eslintrc.js
+.bablerc

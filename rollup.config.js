@@ -8,7 +8,7 @@ export default {
     format: 'umd',
     name: 'Enum',
   },
-  sourceMap: true,
+  sourcemap: true,
   plugins: [
     babel({
       exclude: 'node_modules/**'
