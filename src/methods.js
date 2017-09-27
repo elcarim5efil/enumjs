@@ -76,4 +76,6 @@ var _ = {
   }
 };
 
+_.getEnum = _.find;
+
 export default _;
