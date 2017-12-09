@@ -6,8 +6,8 @@ class Enum {
   constructor(src, option) {
     const enums = this.formatEnums(src, option);
 
-    this.map = this.createEnumMap(enums);
-    this.list = this.createEnumList(enums);
+    this.map = this.createEnumMap(enums, option);
+    this.list = this.createEnumList(enums, option);
 
     _.setUnenumerable(this.map, 'length', this.list.length);
 
@@ -43,6 +43,7 @@ class Enum {
 
   formatEnumArray(arr, option) {
     var startIndex = option.startIndex || 0;
+    var keyName = option.customKeyName || 'key';
     return arr.map((item, index) => {
       if (_.isString(item)) {
         return {
@@ -53,24 +54,32 @@ class Enum {
         item.value = item.value === undefined ? (index + startIndex) : item.value;
         return item;
       }
-    }).filter(item => item && item.key);
+    }).filter(item => item && item[keyName]);
   }
 
-  createEnumMap(arr) {
+  createEnumMap(arr, option) {
+    var customKeyName = option.customKeyName;
     return arr.reduce((dest, item) => {
-      return this.createEnum(dest, item);
+      return this.createEnum(dest, item, customKeyName);
     }, {});
   }
 
-  createEnumList(arr) {
-    return arr.filter(item => item && item.key).map(item => item.key);
+  createEnumList(arr, option) {
+    var keyName = option.customKeyName || 'key';
+    return arr.filter(item => item && item[keyName]).map(item => item[keyName]);
   }
 
-  createEnum(host, option) {
-    var key = option.key;
+  createEnum(host, option, customKeyName) {
+    var keyName = customKeyName || 'key';
+    var key = option[keyName];
+
+    if(typeof key === 'undefined'){
+      throw new Error('Enum\'s origin array item should have key and key value');
+    }
+
     key = key.trim();
 
-    _.setUnwritable(host, key, new Value(option));
+    _.setUnwritable(host, key, new Value(option, keyName));
     return host;
   }
 }

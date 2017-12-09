@@ -1,10 +1,10 @@
 import * as _ from './utils';
 
 class Value {
-  constructor(option) {
+  constructor(option, keyName) {
     const store = {};
     const value = option.value;
-    const key = option.key;
+    const key = option[keyName];
     const self = this;
 
     this._getValue = function() {
@@ -19,7 +19,7 @@ class Value {
 
     for(var name in option) {
       store[name] = option[name];
-      if(name === 'key' || name === 'value') {
+      if(name === keyName || name === 'value') {
         continue;
       }
       createExtraValue(name, option[name]);
