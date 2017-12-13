@@ -162,6 +162,52 @@ describe('Enum', function() {
     });
   });
 
+  describe('customKeyName test', function() {
+    const arr = [
+      {name: 'Tom', value: 100, id: 'dog1', key: 'dog'},
+      {name: 'Jack', value: 101, id: 'cat1', key: 'cat'}
+    ];
+    const ENUMS = new Enum(arr, 0, 'id');
+
+    it('get value', function() {
+      arr.forEach(function(item){
+        expect(ENUMS[item.id]).toBe(item.value);
+      });
+    });
+
+    it('forEach test', function() {
+      const res = [];
+      ENUMS.forEach(function(item, key){
+        res.push(key);
+      });
+      expect(res).toEqual(['dog1', 'cat1']);
+    });
+
+    it('map test', function() {
+      const res = ENUMS.map(function(item, key){
+        return key;
+      });
+      
+      expect(res).toEqual(['dog1', 'cat1']);
+    });
+
+    it('filter test', function() {
+      const res = ENUMS.filter(function(item, key){
+        return key === 'dog1' || key === 'cat1';
+      });
+
+      expect(res).toEqual(['dog1', 'cat1']);
+    });
+
+    it('keys test', function() {
+      expect(ENUMS.keys()).toEqual(['dog1', 'cat1']);
+    });
+
+    it('values test', function() {
+      expect(ENUMS.values()).toEqual([100, 101]);
+    });
+  });
+
   describe('filter test', function() {
     it('filter', function() {
       var ENUMS = new Enum('A,B,C');
